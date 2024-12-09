@@ -118,7 +118,27 @@ public class Main {
                     for (int c = 0; c < k; c++) {
                         int nb_c = 0;
                         System.out.println("Cluster " + c + ":");
-
+/*for (int i = 0; i < t_bdshape.length; i++) {
+    for (int j = 0; j < t_bdshape[i].length; j++) {
+        // Vérification pour éviter NullPointerException
+        if (t_bdshape[i][j] != null) {
+            // Vérifie si l'objet appartient au cluster c
+            if (t_bdshape[i][j].getCluster() == c) {
+                System.out.println("(" + 
+                    t_bdshape[i][j].getE34() + "\n\n, " + 
+                    t_bdshape[i][j].getGFD() + "\n\n, " + 
+                    t_bdshape[i][j].getART() + "\n, " + 
+                    t_bdshape[i][j].getYang() + "\n, " + 
+                    t_bdshape[i][j].getZernike7() + ")");
+                nb_c++;
+            }
+        } else {
+            // Message d'erreur pour détecter où l'élément est null
+            System.err.println("t_bdshape[" + i + "][" + j + "] est null !");
+        }
+    }
+}
+ */
                         //Browse into BDShape array
                         for (int i = 0; i < t_bdshape.length; i++) {
                             for (int j = 0; j < t_bdshape[0].length; j++) {
