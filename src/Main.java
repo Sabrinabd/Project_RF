@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -240,8 +241,51 @@ public class Main {
           Hist.Histo_prec(distance[p-1],"Precision (%)", p_ex_e34, p_ex_gfd, p_ex_art, p_ex_yang, p_ex_zernike7);
           Hist.Histo_rapp(distance[p-1],"Repeal (%)", r_ex_e34, r_ex_gfd, r_ex_art, r_ex_yang, r_ex_zernike7);
           Hist.courb_pos(distance[p-1],"True Positives", po_ex_e34, po_ex_gfd, po_ex_art, po_ex_yang, po_ex_zernike7);
-          
-          
+
+         // Exemple de données d'entraînement
+        ArrayList<ArrayList<Double>> trainingData = new ArrayList<>();
+        ArrayList<Integer> trainingLabels = new ArrayList<>();
+
+        // Exemple de points de données 2D avec des étiquettes (label)
+        ArrayList<Double> point1 = new ArrayList<>();
+        point1.add(1.0);
+        point1.add(2.0);
+        trainingData.add(point1);
+        trainingLabels.add(0); // Label pour le premier point
+
+        ArrayList<Double> point2 = new ArrayList<>();
+        point2.add(2.0);
+        point2.add(3.0);
+        trainingData.add(point2);
+        trainingLabels.add(0); // Label pour le deuxième point
+
+        ArrayList<Double> point3 = new ArrayList<>();
+        point3.add(5.0);
+        point3.add(4.0);
+        trainingData.add(point3);
+        trainingLabels.add(1); // Label pour le troisième point
+
+        ArrayList<Double> point4 = new ArrayList<>();
+        point4.add(6.0);
+        point4.add(7.0);
+        trainingData.add(point4);
+        trainingLabels.add(1); // Label pour le quatrième point
+
+        // Instanciation de KNN
+        int k = 3;  // Choisir la valeur de k
+        KNN knn = new KNN(trainingData, trainingLabels, k);
+
+        // Exécution de la méthode KNN pour tester la classification
+        knn.runKNN();
+         // Exemple de données de précisions pour différentes classes KNN
+         double[] precisionE34 = {0.85, 0.90, 0.92, 0.88, 0.80};  // Précision pour E34
+         double[] precisionGFD = {0.88, 0.91, 0.89, 0.87, 0.82};  // Précision pour GFD
+         double[] precisionArt = {0.78, 0.82, 0.84, 0.79, 0.77};  // Précision pour ART
+         double[] precisionYang = {0.92, 0.95, 0.93, 0.89, 0.91}; // Précision pour Yang
+         double[] precisionZernike7 = {0.87, 0.85, 0.88, 0.86, 0.84}; // Précision pour Zernike7
+ 
+         // Afficher un histogramme des précisions des différentes classes pour KNN
+         Hist.Histo_prec("KNN", "Précision", precisionE34, precisionGFD, precisionArt, precisionYang, precisionZernike7);
 
         }
     }
