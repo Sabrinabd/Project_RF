@@ -118,27 +118,7 @@ public class Main {
                     for (int c = 0; c < k; c++) {
                         int nb_c = 0;
                         System.out.println("Cluster " + c + ":");
-/*for (int i = 0; i < t_bdshape.length; i++) {
-    for (int j = 0; j < t_bdshape[i].length; j++) {
-        // Vérification pour éviter NullPointerException
-        if (t_bdshape[i][j] != null) {
-            // Vérifie si l'objet appartient au cluster c
-            if (t_bdshape[i][j].getCluster() == c) {
-                System.out.println("(" + 
-                    t_bdshape[i][j].getE34() + "\n\n, " + 
-                    t_bdshape[i][j].getGFD() + "\n\n, " + 
-                    t_bdshape[i][j].getART() + "\n, " + 
-                    t_bdshape[i][j].getYang() + "\n, " + 
-                    t_bdshape[i][j].getZernike7() + ")");
-                nb_c++;
-            }
-        } else {
-            // Message d'erreur pour détecter où l'élément est null
-            System.err.println("t_bdshape[" + i + "][" + j + "] est null !");
-        }
-    }
-}
- */
+
                         //Browse into BDShape array
                         for (int i = 0; i < t_bdshape.length; i++) {
                             for (int j = 0; j < t_bdshape[0].length; j++) {
@@ -255,7 +235,12 @@ public class Main {
                 }
             }
 
-
+          //Graphics representation
+          Hist.Histo_car(distance[p-1], "Execution Time (ms)", t_ex_e34, t_ex_gfd, t_ex_art, t_ex_yang, t_ex_zernike7);
+          Hist.Histo_prec(distance[p-1],"Precision (%)", p_ex_e34, p_ex_gfd, p_ex_art, p_ex_yang, p_ex_zernike7);
+          Hist.Histo_rapp(distance[p-1],"Repeal (%)", r_ex_e34, r_ex_gfd, r_ex_art, r_ex_yang, r_ex_zernike7);
+          Hist.courb_pos(distance[p-1],"True Positives", po_ex_e34, po_ex_gfd, po_ex_art, po_ex_yang, po_ex_zernike7);
+          
           
 
         }
