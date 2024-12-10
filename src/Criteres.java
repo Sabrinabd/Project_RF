@@ -9,9 +9,10 @@ import java.util.Scanner;
 
 
 public class Criteres {
+    public static int k = 18;
 
         // BDShape's Array [Class][Sample].
-        Shape[][] BdShape = new Shape[10][12];
+        Shape[][] BdShape = new Shape[k][12];
 
       //List for every feature
         List<Double> E34 = new ArrayList<>();
@@ -24,9 +25,9 @@ public class Criteres {
 
 
         public Criteres() {
-
+            
             //Read every feature's file and convert it into a feature's List for every shape[i][j]
-            for (int i = 1; i <= 10; i++) {
+            for (int i = 1; i <= k; i++) {
                 for (int j = 1; j <= 12; j++) {
                     String fileName = "src//Signatures//E34//s"+String.format("%02d", i)+"n0"+String.format("%02d", j)+".e34";
                     File file = new File(fileName);
@@ -55,7 +56,7 @@ public class Criteres {
 
                 }
             }
-            for (int i = 1; i <= 10; i++) {
+            for (int i = 1; i <= k; i++) {
                 for (int j = 1; j <= 12; j++) {
                     String fileName = "src//Signatures//GFD//s"+String.format("%02d", i)+"n0"+String.format("%02d", j)+".gfd";
                     File file = new File(fileName);
@@ -83,7 +84,7 @@ public class Criteres {
 
                 }
             }
-            for (int i = 1; i <= 10; i++) {
+            for (int i = 1; i <= k; i++) {
                 for (int j = 1; j <= 12; j++) {
                     String fileName = "src//Signatures//ART//s"+String.format("%02d", i)+"n0"+String.format("%02d", j)+".art";
                     File file = new File(fileName);
@@ -108,7 +109,7 @@ public class Criteres {
 
                 }
             }
-            for (int i = 1; i <= 10; i++) {
+            for (int i = 1; i <= k; i++) {
                 for (int j = 1; j <= 12; j++) {
                     String fileName = "src/Signatures/Yang/s"+String.format("%02d", i)+"n0"+String.format("%02d", j)+".yng";
                     File file = new File(fileName);
@@ -133,7 +134,7 @@ public class Criteres {
 
                 }
             }
-            for (int i = 1; i <= 10; i++) {
+            for (int i = 1; i <= k; i++) {
                 for (int j = 1; j <= 12; j++) {
                     String fileName = "src//Signatures//Zernike7//s"+String.format("%02d", i)+"n0"+String.format("%02d", j)+".zrk.txt";
                     File file = new File(fileName);
@@ -164,14 +165,14 @@ public class Criteres {
 
         //Calculate the confusion matrix
         public Double[][] Mat_confus(Shape[][] bdshape){
-            Double[][] mat_con = new Double[10][10];
+            Double[][] mat_con = new Double[k][k];
             //initialization of (9*9) zeros Matrix
-            for(int i=0; i<10;i++){
-                for(int j=0; j<10;j++) {
+            for(int i=0; i<k;i++){
+                for(int j=0; j<k;j++) {
                     mat_con[i][j]=0.0;}}
 
             //compare
-            for(int i=0; i<10;i++){
+            for(int i=0; i<k;i++){
                 for(int j=0; j<12;j++){
 
                     if(bdshape[i][j].getCluster()==i){ mat_con[i][i]+=1;}

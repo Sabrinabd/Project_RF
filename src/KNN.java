@@ -1,75 +1,58 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Scanner;
 
 public class KNN {
-    private ArrayList<ArrayList<Double>> trainingData;
+    private ArrayList<Shape> trainingData;
     private ArrayList<Integer> trainingLabels;
-    private int k;
+    private int neighbors;// Nombre de voisins à considérer
+    private boolean isValidated = false;
 
     // Constructeur de la classe KNN
-    public KNN(ArrayList<ArrayList<Double>> trainingData, ArrayList<Integer> trainingLabels, int k) {
+    public KNN(ArrayList<Shape> trainingData, ArrayList<Integer> trainingLabels, int neighbors) {
         this.trainingData = trainingData;
         this.trainingLabels = trainingLabels;
-        this.k = k;
+
+        this.neighbors = neighbors;
+
+
     }
 
-    // Méthode pour calculer la distance Euclidienne entre deux points
-    public static double euclideanDistance(ArrayList<Double> point1, ArrayList<Double> point2) {
-        validateEqualDimensions(point1, point2);
+ 
 
-        double sum = 0.0;
-        for (int i = 0; i < point1.size(); i++) {
-            sum += Math.pow(point1.get(i) - point2.get(i), 2);
-        }
-        return Math.sqrt(sum);
-    }
+   
 
-    // Méthode pour calculer la distance de Manhattan
-    public static double manhattanDistance(ArrayList<Double> point1, ArrayList<Double> point2) {
-        validateEqualDimensions(point1, point2);
-
-        double sum = 0.0;
-        for (int i = 0; i < point1.size(); i++) {
-            sum += Math.abs(point1.get(i) - point2.get(i));
-        }
-        return sum;
-    }
-
-    // Méthode pour calculer la distance Minkowski (p-norm)
-    public static double minkowskiDistance(ArrayList<Double> point1, ArrayList<Double> point2, int p) {
-        validateEqualDimensions(point1, point2);
-
-        double sum = 0.0;
-        for (int i = 0; i < point1.size(); i++) {
-            sum += Math.pow(Math.abs(point1.get(i) - point2.get(i)), p);
-        }
-        return Math.pow(sum, 1.0 / p);
-    }
+    
 
     // Méthode pour effectuer la classification avec l'algorithme des k-plus-proches voisins
-    public int classify(ArrayList<Double> testPoint, String distanceType, int p) {
-        validateTrainingData();
-
+    public int classify(ArrayList<Double> testPoint,String feature, int p) {
+        if (!isValidated) {
+            validateTrainingData();
+            isValidated = true;
+        }
         ArrayList<DistanceLabel> distances = new ArrayList<>();
 
         // Calcul des distances entre le point de test et chaque point d'entraînement
         for (int i = 0; i < trainingData.size(); i++) {
-            double distance;
-            switch (distanceType.toLowerCase()) {
-                case "euclidean":
-                    distance = euclideanDistance(testPoint, trainingData.get(i));
+            double distance = 0;
+            switch (feature) {
+                case "ART":
+                     distance=KMeans.calculateDistance(testPoint, trainingData.get(i).getART(), p);
                     break;
-                case "manhattan":
-                    distance = manhattanDistance(testPoint, trainingData.get(i));
+                case "E34":
+                    distance=KMeans.calculateDistance(testPoint, trainingData.get(i).getE34(), p);
                     break;
-                case "minkowski":
-                    distance = minkowskiDistance(testPoint, trainingData.get(i), p);
+                case "GFD":
+                    distance=KMeans.calculateDistance(testPoint, trainingData.get(i).getGFD(), p);
                     break;
-                default:
-                    throw new IllegalArgumentException("Distance type not supported: " + distanceType);
+                case"Zernike7":
+                    distance=KMeans.calculateDistance(testPoint, trainingData.get(i).getZernike7(), p);
+                    break;
+                case "Yang":
+                    distance=KMeans.calculateDistance(testPoint, trainingData.get(i).getYang(), p);
+                    break;
             }
+            
             distances.add(new DistanceLabel(distance, trainingLabels.get(i)));
         }
 
@@ -78,7 +61,7 @@ public class KNN {
 
         // Sélectionner les k plus proches voisins
         ArrayList<Integer> nearestLabels = new ArrayList<>();
-        for (int i = 0; i < k; i++) {
+        for (int i = 0; i < neighbors; i++) {
             nearestLabels.add(distances.get(i).getLabel());
         }
 
@@ -103,13 +86,6 @@ public class KNN {
         return majorityLabel;
     }
 
-    // Validation des dimensions des points
-    private static void validateEqualDimensions(ArrayList<Double> point1, ArrayList<Double> point2) {
-        if (point1.size() != point2.size()) {
-            throw new IllegalArgumentException("Points must have the same dimensions.");
-        }
-    }
-
     // Validation des données d'entraînement
     private void validateTrainingData() {
         if (trainingData.size() != trainingLabels.size()) {
@@ -118,7 +94,7 @@ public class KNN {
         if (trainingData.isEmpty()) {
             throw new IllegalArgumentException("Training data cannot be empty.");
         }
-        if (k > trainingData.size()) {
+        if (neighbors > trainingData.size()) {
             throw new IllegalArgumentException("k cannot be greater than the number of training samples.");
         }
     }
@@ -142,27 +118,5 @@ public class KNN {
         }
     }
 
-    // Méthode pour exécuter l'algorithme KNN sur les données d'entraînement et afficher le résultat
-    public void runKNN() {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter the distance metric (euclidean, manhattan, minkowski): ");
-        String distanceType = sc.nextLine().trim().toLowerCase();
-
-        int p = 2; // Default for Euclidean and can be adjusted for Minkowski
-        if (distanceType.equals("minkowski")) {
-            System.out.print("Enter the p value for Minkowski distance: ");
-            p = sc.nextInt();
-        }
-
-        // Exemple de test avec un point fictif (remplissez-le avec vos propres données)
-        ArrayList<Double> testPoint = new ArrayList<>();
-        System.out.println("Enter the test point coordinates: ");
-        for (int i = 0; i < trainingData.get(0).size(); i++) {
-            System.out.print("Coordinate " + (i + 1) + ": ");
-            testPoint.add(sc.nextDouble());
-        }
-
-        int result = classify(testPoint, distanceType, p);
-        System.out.println("Predicted label for the test point: " + result);
-    }
+    
 }
