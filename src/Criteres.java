@@ -26,8 +26,8 @@ public class Criteres {
         public Criteres() {
 
             //Read every feature's file and convert it into a feature's List for every shape[i][j]
-            for (int i = 1; i < 10; i++) {
-                for (int j = 1; j < 12; j++) {
+            for (int i = 1; i <= 10; i++) {
+                for (int j = 1; j <= 12; j++) {
                     String fileName = "src//Signatures//E34//s"+String.format("%02d", i)+"n0"+String.format("%02d", j)+".e34";
                     File file = new File(fileName);
                     ArrayList<Double> lign=new ArrayList<>();
@@ -55,8 +55,8 @@ public class Criteres {
 
                 }
             }
-            for (int i = 1; i < 10; i++) {
-                for (int j = 1; j < 12; j++) {
+            for (int i = 1; i <= 10; i++) {
+                for (int j = 1; j <= 12; j++) {
                     String fileName = "src//Signatures//GFD//s"+String.format("%02d", i)+"n0"+String.format("%02d", j)+".gfd";
                     File file = new File(fileName);
 
@@ -83,8 +83,8 @@ public class Criteres {
 
                 }
             }
-            for (int i = 1; i < 10; i++) {
-                for (int j = 1; j < 12; j++) {
+            for (int i = 1; i <= 10; i++) {
+                for (int j = 1; j <= 12; j++) {
                     String fileName = "src//Signatures//ART//s"+String.format("%02d", i)+"n0"+String.format("%02d", j)+".art";
                     File file = new File(fileName);
                     ArrayList lign=new ArrayList();
@@ -108,8 +108,8 @@ public class Criteres {
 
                 }
             }
-            for (int i = 1; i < 10; i++) {
-                for (int j = 1; j < 12; j++) {
+            for (int i = 1; i <= 10; i++) {
+                for (int j = 1; j <= 12; j++) {
                     String fileName = "src/Signatures/Yang/s"+String.format("%02d", i)+"n0"+String.format("%02d", j)+".yng";
                     File file = new File(fileName);
                     ArrayList lign=new ArrayList();
@@ -133,8 +133,8 @@ public class Criteres {
 
                 }
             }
-            for (int i = 1; i < 10; i++) {
-                for (int j = 1; j < 12; j++) {
+            for (int i = 1; i <= 10; i++) {
+                for (int j = 1; j <= 12; j++) {
                     String fileName = "src//Signatures//Zernike7//s"+String.format("%02d", i)+"n0"+String.format("%02d", j)+".zrk.txt";
                     File file = new File(fileName);
                     ArrayList lign=new ArrayList();
